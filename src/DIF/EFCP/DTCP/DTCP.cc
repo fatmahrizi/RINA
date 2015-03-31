@@ -16,6 +16,7 @@
 // 
 
 #include "DTCP.h"
+const char * SIG_STAT_DTCP_RX_SENT = "DTCP_RX_SENT";
 
 Define_Module(DTCP);
 
@@ -87,6 +88,12 @@ void DTCP::setSenderLeftWinEdge(unsigned int senderLeftWinEdge)
   dtcpState->setSenderLeftWinEdge(senderLeftWinEdge);
 }
 
+void DTCP::initSignalsAndListeners()
+{
+  //Signals that this module is emmiting
+  sigStatDTCPRxCount = registerSignal(SIG_STAT_DTCP_RX_SENT);
+}
+
 void DTCP::initialize(int step)
 {
     Enter_Method("initialize");
@@ -142,6 +149,10 @@ void DTCP::initialize(int step)
         reconcileFCPolicy     = (DTCPReconcileFCPolicyBase*) createPolicyModule(RECONCILE_FC_POLICY_PREFIX, RECONCILE_FC_POLICY_NAME);
         rateReductionPolicy   = (DTCPRateReductionPolicyBase*) createPolicyModule(RATE_REDUCTION_POLICY_PREFIX, RATE_REDUCTION_POLICY_NAME);
   			ecnSlowDownPolicy			= (DTCPECNSlowDownPolicyBase*) createPolicyModule(ECN_SLOW_DOWN_POLICY_PREFIX, ECN_SLOW_DOWN_POLICY_NAME);
+
+
+  		  //Signals that this module is emmiting
+    initSignalsAndListeners();
 
     }
 }
@@ -664,6 +675,8 @@ void DTCP::runRxTimerExpiryPolicy(DTCPRxExpiryTimer* timer)
 
     timer->setExpiryCount(timer->getExpiryCount() + 1);
     schedule(timer);
+
+    emit(sigStatDTCPRxCount, dtcpState->getRxSent());
   }
 
 

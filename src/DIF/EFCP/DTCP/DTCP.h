@@ -91,6 +91,7 @@ class DTCP: public cSimpleModule {
     void flushAllQueuesAndPrepareToDie();
 
     void handleSendingRateTimer(DTCPSendingRateTimer* timer);
+    void initSignalsAndListeners();
 
 public:
 
@@ -184,6 +185,9 @@ protected:
     virtual void handleMessage(cMessage *msg);
     virtual void initialize(int step);
     int numInitStages() const { return 2;};
+
+
+    simsignal_t sigStatDTCPRxCount;
 };
 
 #endif /* DTCP_H_ */
