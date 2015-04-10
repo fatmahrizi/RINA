@@ -36,14 +36,14 @@ bool QoSCubeComparerMin::run(Flow& flow) {
 
     for (QCubeCItem it = cubes.begin(); it != cubes.end(); ++it) {
         if(flow.getQosParameters().isFeasibility(*it)){
-            double tmpscore = flow.getQosParameters().getCostBits();
-            if (cost > tmpscore) {
-                cost = tmpscore;
+            if (cost > it->getCostBits()) {
+                cost = it->getCostBits();
                 qosid = it->getQosId();
             }
         }
     }
     flow.getConnectionId().setQoSId(qosid);
+
     return qosid ? true : false;
 
 }

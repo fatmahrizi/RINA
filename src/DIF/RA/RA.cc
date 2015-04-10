@@ -550,6 +550,7 @@ void RA::createNM1Flow(Flow *flow)
     // End flow exists check.
     //
 
+
     //Ask DA which IPC to use to reach dst App
     const Address* ad = difAllocator->resolveApnToBestAddress(dstApn);
     if (ad == NULL) {
@@ -625,6 +626,7 @@ void RA::createNM1FlowWithoutAllocate(Flow* flow)
     //
     // End flow exists check.
     //
+
 
 
     // Ask DA which IPC to use to reach dst App
@@ -769,29 +771,35 @@ bool RA::bindNFlowToNM1Flow(Flow* flow)
     std::string neighAddr = flow->getDstNeighbor().getApname().getName();
     unsigned short qosID = flow->getConId().getQoSId();
 
+    NM1FlowTableItem* nm1FlowItem = NULL;
+
     //
     // A flow already exists from this ipc to the destination one(passing through a neighbor)?
     //
     PDUFTGNeighbor * te =
-        fwdtg->getNextNeighbor(flow->getDstAddr(), flow->getConId().getQoSId());
+        fwdtg->getNextNeighbor(flow->getDstAddr(), qosID);
 
     if(te)
     {
-        neighAddr = te->getDestAddr().getApname().getName();
+        nm1FlowItem = flowTable->lookup( te->getPort()->getFlow() );
+        return (nm1FlowItem->getConnectionStatus() == NM1FlowTableItem::CON_ESTABLISHED);
     }
 
-    // see if any appropriate (N-1)-flow already exists
-    NM1FlowTableItem* nm1FlowItem = flowTable->findFlowByDstApni(neighAddr, qosID);
+    if(neighAddr != ""){
+        te = fwdtg->getNextNeighbor(neighAddr, qosID);
+        if(te){
+                nm1FlowItem = flowTable->lookup( te->getPort()->getFlow() );
+                return (nm1FlowItem->getConnectionStatus() == NM1FlowTableItem::CON_ESTABLISHED);
+        }
 
-    if (nm1FlowItem == NULL)
-    { // we need to allocate a new (N-1)-flow to suit our needs
         EV << getFullName()
-           << " allocating an (N-1)-flow (dstApp " << neighAddr << ")" << endl;
+                << " allocating an (N-1)-flow (dstApp " << neighAddr << ")" << endl;
 
         APNamingInfo src = APNamingInfo(APN(processName));
         APNamingInfo dst = APNamingInfo(APN(neighAddr));
 
         Flow *nm1Flow = new Flow(src, dst);
+
         // FIXME: useless, appropriate QoS class has to be chosen by some algorithm
         nm1Flow->setQosParameters(flow->getQosParameters());
         // initiate flow creation
@@ -799,21 +807,11 @@ bool RA::bindNFlowToNM1Flow(Flow* flow)
         // repeat the lookup
         nm1FlowItem = flowTable->findFlowByDstApni(neighAddr, qosID);
 
-        if (nm1FlowItem == NULL)
-        {
-            EV << "!!! not able to allocate (N-1)-flow for " << neighAddr << endl;
-            return false;
-        }
+        return (nm1FlowItem->getConnectionStatus() == NM1FlowTableItem::CON_ESTABLISHED);
     }
 
-    if (nm1FlowItem->getConnectionStatus() == NM1FlowTableItem::CON_ESTABLISHED)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    EV << "!!! not able to allocate (N-1)-flow for " << flow->getDstAddr() << endl;
+    return false;
 }
 
 

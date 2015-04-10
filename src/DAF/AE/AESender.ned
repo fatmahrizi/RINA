@@ -34,4 +34,19 @@ simple AESender extends AE like IAE
         int size = default(1024);
         int sizevar = default(0);
         
+        
+        bool printAtEnd = default(false);
+        
+        @signal[arrivalPong](type="simtime_t");
+        @signal[arrivalPong1](type="simtime_t");
+        @signal[arrivalPong2](type="simtime_t");
+        @signal[arrivalPong3](type="simtime_t");
+        @signal[arrivalPong4](type="simtime_t");
+        
+		@statistic[pongDelay1](title="pong delay"; source="arrivalPong"; record=vector,stats; interpolationmode=none);
+		@statistic[pongDelay1](title="pong delay1"; source="arrivalPong1"; record=vector,stats; interpolationmode=none);
+		@statistic[pongDelay2](title="pong delay2"; source="arrivalPong2"; record=vector,stats; interpolationmode=none);
+		@statistic[pongDelay3](title="pong delay3"; source="arrivalPong3"; record=vector,stats; interpolationmode=none);
+		@statistic[pongDelay4](title="pong delay4"; source="arrivalPong4"; record=vector,stats; interpolationmode=none);
+        
 }

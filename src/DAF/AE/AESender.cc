@@ -124,17 +124,22 @@ void AESender::initialize()
     WATCH(pingreceivedSize);
     WATCH(minDelay);
     WATCH(maxDelay);
+
+    initSignal = false;
 }
 
 void AESender::finish()
 {
-    EV << "At "<<this->getApni()<<endl;
-    EV << send << " ("<<sendSize << ")"<<endl;
-    EV << received << " ("<<receivedSize << ")"<<endl;
-    EV << pingreceived << " ("<<pingreceivedSize << ")"<<endl;
-    EV << minDelay << " / "<<maxDelay<<endl;
-    EV << firstR << " -> "<<lastR<<endl;
-    EV << "-----------------"<<endl;
+    if(par("printAtEnd").boolValue()){
+        EV << "At "<<this->getApni()<<endl;
+        EV << " With QoS" << flows.back().getConId().getQoSId()<<endl;
+        EV << send << " ("<<sendSize << ")"<<endl;
+        EV << received << " ("<<receivedSize << ")"<<endl;
+        EV << pingreceived << " ("<<pingreceivedSize << ")"<<endl;
+        EV << minDelay << " / "<<maxDelay<<endl;
+        EV << firstR << " -> "<<lastR<<endl;
+        EV << "-----------------"<<endl;
+    }
 }
 
 void AESender::handleSelfMessage(cMessage *msg) {
@@ -154,6 +159,24 @@ void AESender::handleSelfMessage(cMessage *msg) {
         insertFlow(fl);
 
         sendAllocationRequest(&flows.back());
+
+        switch (flows.back().getConId().getQoSId()){
+        case 1:
+            arrivalPongSignal = registerSignal("arrivalPong1");
+            break;
+        case 2:
+            arrivalPongSignal = registerSignal("arrivalPong2");
+            break;
+        case 3:
+            arrivalPongSignal = registerSignal("arrivalPong3");
+            break;
+        case 4:
+            arrivalPongSignal = registerSignal("arrivalPong4");
+            break;
+        default:
+            arrivalPongSignal = registerSignal("arrivalPong");
+            break;
+        }
 
         //Schedule ComRequest
         cMessage* m = new cMessage(S_TIM_COM);
@@ -177,7 +200,7 @@ void AESender::handleSelfMessage(cMessage *msg) {
             obj.objectVal = (cObject*)(&myPath);
             ping->setObject(obj);
 
-            ping->setByteLength(msgSize);
+            ping->setBitLength(8*msgSize);
 
             //Send message
             sendData(&flows.back(), ping);
@@ -269,5 +292,6 @@ void AESender::processMReadR(CDAPMessage* msg) {
             firstR = simTime();
         }
         lastR = simTime();
+        emit(arrivalPongSignal, delay);
     }
 }

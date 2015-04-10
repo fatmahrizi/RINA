@@ -39,7 +39,7 @@ void NM1FlowTable::insert(Flow* flow, FABase* fa, RMTPort* port, std::string gat
     flows.push_back(entry);
 }
 
-NM1FlowTableItem* NM1FlowTable::lookup(Flow* flow)
+NM1FlowTableItem* NM1FlowTable::lookup(const Flow* flow)
 {
     for(FlTableIter it = flows.begin(); it != flows.end(); ++it )
     {

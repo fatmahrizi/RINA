@@ -88,12 +88,13 @@ class AESender : public AE
     simtime_t lastR;
 
     void prepareAllocateRequest();
-    void preparePing();
     void prepareDeallocateRequest();
 
     virtual void processMRead(CDAPMessage* msg);
     virtual void processMReadR(CDAPMessage* msg);
 
+    simsignal_t arrivalPongSignal;
+    bool initSignal;
 };
 
 #endif

@@ -33,7 +33,7 @@ class NM1FlowTable : public cSimpleModule
     void remove(Flow* flow);
     NM1FlowTableItem* findFlowByDstApni(std::string addr, unsigned short qosId);
     NM1FlowTableItem* findFlowByDstAddr(std::string addr, unsigned short qosId);
-    NM1FlowTableItem* lookup(Flow* flow);
+    NM1FlowTableItem* lookup(const Flow* flow);
 
   protected:
       virtual void initialize();

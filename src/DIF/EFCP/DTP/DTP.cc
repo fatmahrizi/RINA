@@ -1471,44 +1471,33 @@ void DTP::clearRxQ()
 
 void DTP::schedule(DTPTimers *timer, double time)
 {
-
+    unsigned int rxCount = 1;
+    if(state->isRxPresent()){
+      rxCount = dtcp->getDataReXmitMax();
+    }
+    double MplRA = (state->getMPL() + (getRxTime() * rxCount) + state->getQoSCube()->getATime()/1000);
+    if(MplRA<0 ){
+        MplRA = 0;
+    }
   switch (timer->getType())
   {
 
-    case (DTP_SENDER_INACTIVITY_TIMER): {
-
-      //3(MPL+R+A)
-      unsigned int rxCount = 1;
-      if(state->isRxPresent()){
-        rxCount = dtcp->getDataReXmitMax();
-
-
-      scheduleAt(simTime() + 3 * (state->getMPL() + (getRxTime() * rxCount) + state->getQoSCube()->getATime()/1000) , timer);
-      }
+    case (DTP_SENDER_INACTIVITY_TIMER):
+        //3(MPL+R+A)
+        scheduleAt(simTime() + 3 * MplRA , timer);
       break;
-    }
-    case (DTP_RCVR_INACTIVITY_TIMER): {
-
-
-      unsigned int rxCount = 1;
-      if(state->isRxPresent()){
-        rxCount = dtcp->getDataReXmitMax();
-
-        scheduleAt(simTime() + 2 *(state->getMPL() + (getRxTime() * rxCount) + state->getQoSCube()->getATime()/1000 ), timer);
-      }
+    case (DTP_RCVR_INACTIVITY_TIMER):
+        //2(MPL+R+A)
+        scheduleAt(simTime() + 2 *MplRA, timer);
       break;
-    }
-    case (DTP_A_TIMER):{
-      //TODO B1 Tune it up.
-      /* The timer should be set to a quantity near A – (RTT/2 + ta + ),
-       * where RTT is the estimated Round Trip Time, ta is the time to
-       * generate and send an Ack/Flow PDU, and  is the standard deviation
-       * of these estimates.
-       */
-      scheduleAt(simTime() + getQoSCube()->getATime() , timer);
+    case (DTP_A_TIMER):
+        if(getQoSCube()->getATime()>0){
+            scheduleAt(simTime() + getQoSCube()->getATime() , timer);
+        } else {
+            scheduleAt(simTime() , timer);
+        }
       break;
-    }
-  }
+   }
 }
 
 void DTP::setFlow(Flow* flow)
