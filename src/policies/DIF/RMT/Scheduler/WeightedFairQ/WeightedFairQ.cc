@@ -13,41 +13,27 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include "DL.h"
+#include <WeightedFairQ/WeightedFairQ.h>
 
-Define_Module(DL);
+Define_Module(FWQ::WeightedFairQ);
 
-void DL::onPolicyInit()
-{
-    monitor= check_and_cast<DLMonitor*>
-        (getModuleByPath("^.queueMonitorPolicy"));
-    if (monitor == NULL)
-    {
-        EV << "!!! DLMaxQ has to be used in conjecture with DLMonitor!" << endl;
+namespace FWQ {
+
+using namespace std;
+
+
+void WeightedFairQ::onPolicyInit() {
+    monitor= check_and_cast<WeightedFairQMonitor*> (getModuleByPath("^.queueMonitorPolicy"));
+    if (monitor == NULL) {
+        EV << "!!! WeightedFairQMaxQ has to be used in conjecture with WeightedFairQ!" << endl;
     }
 }
 
 
-void DL::processQueues(RMTPort* port, RMTQueueType direction)
-{
+void WeightedFairQ::processQueues(RMTPort* port, RMTQueueType direction) {
     Enter_Method("processQueues()");
+
     switch(direction){
-        case RMTQueue::OUTPUT:
-            if (port->isOutputReady() && port->getWaiting(RMTQueue::OUTPUT)) {
-                port->setOutputBusy();
-                RMTQueue* outQ = port->getManagementQueue(RMTQueue::OUTPUT);
-                if (outQ->getLength() > 0) {
-                    outQ->releasePDU();
-                } else {
-                    outQ =  monitor->getNextUrgentQ(port);
-                    if(outQ && outQ->getLength() > 0) {
-                        outQ->releasePDU();
-                    } else {
-                        port->setOutputReady();
-                    }
-                }
-            }
-            break;
         case RMTQueue::INPUT:
             if (port->isInputReady() && port->getWaiting(RMTQueue::INPUT)) {
                 port->setInputBusy();
@@ -59,6 +45,25 @@ void DL::processQueues(RMTPort* port, RMTQueueType direction)
                     inQ->releasePDU();
                 }
             }
+        break;
+        case RMTQueue::OUTPUT:
+            if (port->isOutputReady() && port->getWaiting(RMTQueue::OUTPUT)) {
+                port->setOutputBusy();
+                RMTQueue* outQ = port->getManagementQueue(RMTQueue::OUTPUT);
+                if (outQ->getLength() > 0) {
+                    outQ->releasePDU();
+                } else {
+                    outQ =  monitor->getNextQueue();
+                    if(outQ && outQ->getLength() > 0) {
+                        outQ->releasePDU();
+                    } else {
+                        port->setOutputReady();
+                    }
+                }
+            }
             break;
     }
 }
+
+} /* namespace FWQ */
+

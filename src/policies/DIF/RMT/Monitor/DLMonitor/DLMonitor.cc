@@ -134,6 +134,11 @@ int DLMonitor::getPortCount(RMTPort* port){
 
 int DLMonitor::getThreshold(RMTQueue* queue){
     std::string cu = Q2CU[queue];
+/*
+    RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);
+    EV << "CU : " << cu << ", Threshold : " << CUs[cu].threshold << ", Current : "<<count[port] << endl;
+    endSimulation();
+*/
     return CUs[cu].threshold;
 }
 

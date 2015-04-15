@@ -1,6 +1,4 @@
 //
-// Copyright © 2014 - 2015 PRISTINE Consortium (http://ict-pristine.eu)
-// 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -15,14 +13,14 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include <QueuePerNFlow.h>
+import rina.policies.DIF.RMT.Scheduler.IntRMTSchedulingPolicy;
 
-Define_Module(QueuePerNFlow);
+package rina.policies.DIF.RMT.Scheduler.WeightedFairQ;
 
-void QueuePerNFlow::onNFlowAlloc(RMTPort* port, Flow* flow)
+
+simple WeightedFairQ like IntRMTSchedulingPolicy
 {
-    rmtAllocator->addQueue(RMTQueue::OUTPUT, port, idGenerator->generateID(flow).c_str())->setFlow(flow);
-    flow->swapFlow();
-    rmtAllocator->addQueue(RMTQueue::INPUT, port, idGenerator->generateID(flow).c_str())->setFlow(flow);
-    flow->swapFlow();
+    parameters:
+        @display("i=block/socket");
+        @class(FWQ::WeightedFairQ);
 }

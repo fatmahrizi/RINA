@@ -23,6 +23,7 @@
 
 #include "RINASignals.h"
 #include "PDU.h"
+#include "Flow.h"
 
 
 class RMTQueue : public cSimpleModule
@@ -105,6 +106,9 @@ class RMTQueue : public cSimpleModule
 //     */
 //    void setQueueId(const char* queueId);
 
+    Flow* getFlow() const;
+    void setFlow(Flow* _flow);
+
     /**
      * Returns a pointer to the first PDU in the queue.
      *
@@ -154,6 +158,8 @@ class RMTQueue : public cSimpleModule
     int maxQLength;
     int thresholdQLength;
 
+    Flow * flow;
+
     simtime_t qTime;
 
     cGate* rmtAccessGate;
@@ -169,6 +175,8 @@ class RMTQueue : public cSimpleModule
     cGate* getInputGate() const;
     cGate* getRMTAccessGate() const;
     void setRMTAccessGate(cGate* gate);
+
+
 
     void redrawGUI();
 

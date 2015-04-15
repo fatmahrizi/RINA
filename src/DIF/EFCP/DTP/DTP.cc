@@ -229,14 +229,17 @@ void DTP::redrawGUI()
   {
       return;
   }
-
-  dtcp->redrawGUI();
+  if(state->isDtcpPresent()){
+      dtcp->redrawGUI();
+  }
 
   cDisplayString& disp = getDisplayString();
   disp.setTagArg("t", 1, "r");
   std::ostringstream desc;
   desc << "nextSeqNum: " << state->getNextSeqNumToSendWithoutIncrement() <<"\n";
-  desc << "sLWE: " << dtcp->dtcpState->getSenderLeftWinEdge() <<"\n";
+  if(state->isDtcpPresent()){
+      desc << "sLWE: " << dtcp->dtcpState->getSenderLeftWinEdge() <<"\n";
+  }
   if(state->isDtcpPresent() && state->isFCPresent()){
     desc << "sRWE: " << dtcp->getSndRtWinEdge() << "\n";
   }
@@ -1395,7 +1398,6 @@ void DTP::sendToRMT(PDU* pdu)
     //This should be controlPDU so do not have to increment LastSeqNumSent
     EV << getFullPath() <<": Control PDU number: " << pdu->getSeqNum() <<" sent in time: " << simTime() << endl;
   }
-
   send(pdu, southO);
 }
 
@@ -1403,8 +1405,11 @@ double DTP::getRxTime()
 {
   //TODO A2 Epsilon
   // RTT + A + epsilon
-
-  return state->getRtt() + getQoSCube()->getATime()/1000;
+    if(getQoSCube()->getATime()>0){
+        return state->getRtt() + getQoSCube()->getATime()/1000;
+    } else {
+        return state->getRtt();
+    }
 }
 
 unsigned int DTP::getAllowableGap()
@@ -1475,29 +1480,29 @@ void DTP::schedule(DTPTimers *timer, double time)
     if(state->isRxPresent()){
       rxCount = dtcp->getDataReXmitMax();
     }
-    double MplRA = (state->getMPL() + (getRxTime() * rxCount) + state->getQoSCube()->getATime()/1000);
-    if(MplRA<0 ){
-        MplRA = 0;
-    }
-  switch (timer->getType())
-  {
+    double MplRA = state->getMPL() + (getRxTime() * rxCount);
 
-    case (DTP_SENDER_INACTIVITY_TIMER):
-        //3(MPL+R+A)
-        scheduleAt(simTime() + 3 * MplRA , timer);
-      break;
-    case (DTP_RCVR_INACTIVITY_TIMER):
-        //2(MPL+R+A)
-        scheduleAt(simTime() + 2 *MplRA, timer);
-      break;
-    case (DTP_A_TIMER):
-        if(getQoSCube()->getATime()>0){
-            scheduleAt(simTime() + getQoSCube()->getATime() , timer);
-        } else {
-            scheduleAt(simTime() , timer);
-        }
-      break;
-   }
+    if(state->getQoSCube()->getATime()>0 ){
+        MplRA += state->getQoSCube()->getATime()/1000;
+    }
+
+    switch (timer->getType()){
+        case DTP_SENDER_INACTIVITY_TIMER:
+            //3(MPL+R+A)
+            scheduleAt(simTime() + 3 * MplRA , timer);
+            break;
+        case (DTP_RCVR_INACTIVITY_TIMER):
+            //2(MPL+R+A)
+            scheduleAt(simTime() + 2 *MplRA, timer);
+            break;
+        case (DTP_A_TIMER):
+            if(getQoSCube()->getATime()>0){
+                scheduleAt(simTime() + getQoSCube()->getATime() , timer);
+            } else {
+                scheduleAt(simTime() , timer);
+            }
+            break;
+    }
 }
 
 void DTP::setFlow(Flow* flow)

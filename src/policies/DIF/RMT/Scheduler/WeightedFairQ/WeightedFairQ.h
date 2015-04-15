@@ -1,6 +1,4 @@
 //
-// Copyright © 2014 - 2015 PRISTINE Consortium (http://ict-pristine.eu)
-// 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -15,14 +13,32 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include <QueuePerNFlow.h>
+#ifndef __RINA_WeightedFairQ_H_
+#define __RINA_WeightedFairQ_H_
 
-Define_Module(QueuePerNFlow);
+#include <omnetpp.h>
 
-void QueuePerNFlow::onNFlowAlloc(RMTPort* port, Flow* flow)
+#include "RMTSchedulingBase.h"
+
+#include <WeightedFairQMonitor/WeightedFairQMonitor.h>
+
+namespace FWQ {
+
+using namespace std;
+
+class WeightedFairQ : public RMTSchedulingBase
 {
-    rmtAllocator->addQueue(RMTQueue::OUTPUT, port, idGenerator->generateID(flow).c_str())->setFlow(flow);
-    flow->swapFlow();
-    rmtAllocator->addQueue(RMTQueue::INPUT, port, idGenerator->generateID(flow).c_str())->setFlow(flow);
-    flow->swapFlow();
-}
+public:
+    virtual void onPolicyInit();
+
+private:
+    virtual void processQueues(RMTPort* port, RMTQueueType direction);
+
+protected:
+    WeightedFairQMonitor * monitor;
+};
+
+
+} /* namespace FWQ */
+
+#endif

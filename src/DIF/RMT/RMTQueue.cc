@@ -58,6 +58,8 @@ void RMTQueue::initialize()
     // length for vector stats
     sigStatRMTQueueLength = registerSignal(SIG_STAT_RMTQUEUE_LENGTH);
 
+    flow = NULL;
+
     maxQLength = getParentModule()->getParentModule()->par("defaultMaxQLength");
     thresholdQLength = getParentModule()->getParentModule()->par("defaultThreshQLength");
     qTime = simTime();
@@ -246,6 +248,13 @@ cGate* RMTQueue::getOutputGate() const
 cGate* RMTQueue::getInputGate() const
 {
     return inputGate;
+}
+
+Flow* RMTQueue::getFlow() const {
+    return flow;
+}
+void RMTQueue::setFlow(Flow* _flow) {
+    flow = _flow;
 }
 
 const cPacket* RMTQueue::getFirstPDU() const
