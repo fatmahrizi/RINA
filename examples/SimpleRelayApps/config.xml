@@ -186,14 +186,41 @@
 	</AStreams>
 	
 	<VStreams>
+		<Stream type="HD"></Stream>
+		<Stream type="1"></Stream>
 		<Stream>
-			<Stream type="HD"></Stream>
-			<Stream type="1"></Stream>
-			<fps>60</fps>
-			<brt>1500</brt>
-			<varFr>0.0</varFr>
-			<rng>normal</rng>
+			<Stream>
+				<fps>60</fps>
+				<brt>1500</brt>
+				<varFr>0.0</varFr>
+				<rng>normal</rng>
+			</Stream>
 		</Stream>
 	</VStreams>
+	
+	<BStreams>
+		<Stream>
+			<brt>1024</brt>
+			<pduS>1400</pduS>
+			<varPduS>0.0</varPduS>
+			<BurstS>14000</BurstS>
+			<varBurstS>0.2</varBurstS>
+			<burstProb>0.05</burstProb>
+			<rng>normal</rng>
+			<rngb>normal</rngb>
+		</Stream>
+	</BStreams>
+	
+	<DStreams>
+		<Stream>
+			<brt>1024</brt>
+			<dataS>2000000</dataS>
+			<varDataS>0.5</varDataS>
+			<waitT>0.5</waitT>
+			<varWaitT>0.5</varWaitT>
+			<rng>normal</rng>
+			<rngwt>normal</rngwt>
+		</Stream>
+	</DStreams>
 	
 </Configuration>

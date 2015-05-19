@@ -69,7 +69,7 @@ int Stream::getid(){
 }
 
 void Stream::compute(){
-    packetSize = ceil(brt*wt);
+    packetSize = (int) ceil(brt*wt);
     minSTime = avgSTime-varSTime;
     maxSTime = avgSTime+varSTime;
     minWTime = avgWTime-varSTime;

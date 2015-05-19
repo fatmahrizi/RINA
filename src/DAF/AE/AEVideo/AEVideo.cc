@@ -60,7 +60,7 @@ int Stream::getNextFrame(){
 
 void Stream::compute(){
     double packetSize = brt*wt;
-    minFrameS = ceil(packetSize*varFrameS);
+    minFrameS = ceil(packetSize*(1-varFrameS));
     maxFrameS = ceil(packetSize*(1+varFrameS));
 }
 
