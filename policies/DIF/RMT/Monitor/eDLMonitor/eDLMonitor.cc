@@ -143,7 +143,7 @@ void eDLMonitor::onPolicyInit(){
     }
 }
 
-void eDLMonitor::onMessageArrival(RMTQueue* queue) {
+void eDLMonitor::postPDUInsertion(RMTQueue* queue) {
     RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);
     if(port != NULL){
         if(queue->getType() == RMTQueue::INPUT){
@@ -159,8 +159,6 @@ void eDLMonitor::onMessageArrival(RMTQueue* queue) {
         }
     }
 }
-
-void eDLMonitor::onMessageDeparture(RMTQueue* queue) {}
 
 void eDLMonitor::onMessageDrop(RMTQueue* queue, const cPacket* pdu) {
     RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);

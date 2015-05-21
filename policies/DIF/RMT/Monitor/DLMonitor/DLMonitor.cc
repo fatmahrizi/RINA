@@ -84,7 +84,7 @@ void DLMonitor::onPolicyInit(){
     }
 }
 
-void DLMonitor::onMessageArrival(RMTQueue* queue) {
+void DLMonitor::postPDUInsertion(RMTQueue* queue) {
     RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);
     if(port != NULL){
         if(queue->getType() == RMTQueue::INPUT){
@@ -100,8 +100,6 @@ void DLMonitor::onMessageArrival(RMTQueue* queue) {
         }
     }
 }
-
-void DLMonitor::onMessageDeparture(RMTQueue* queue) {}
 
 void DLMonitor::onMessageDrop(RMTQueue* queue, const cPacket* pdu) {
     RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);

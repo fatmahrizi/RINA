@@ -54,12 +54,16 @@ void IDPerNCU::onPolicyInit()
 
 std::string IDPerNCU::generateOutputQueueID(PDU* pdu)
 {
+    if(pdu->getConnId().getQoSId() == VAL_MGMTQOSID){
+        return "mgmt";
+    }
+
     std::string qosId = pdu->getConnId().getQoSId();
     if(qos2CU.find(qosId) != qos2CU.end()){
         return qos2CU[qosId];
-    } else {
-        return "BE";
     }
+
+    return "BE";
 }
 
 std::string IDPerNCU::generateInputQueueID(PDU* pdu)

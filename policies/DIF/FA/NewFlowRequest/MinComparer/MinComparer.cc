@@ -18,6 +18,7 @@
 Define_Module(MinComparer);
 
 bool MinComparer::isFeasibility(const QoSReq requirements, const QoSCube cube) const {
+
     if (requirements.getAvgBand() != VAL_QOSPARDONOTCARE && requirements.getAvgBand() > cube.getAvgBand())
         return false;
 
@@ -39,7 +40,7 @@ bool MinComparer::isFeasibility(const QoSReq requirements, const QoSCube cube) c
     if (requirements.getUndetectedBitErr() != VAL_QOSPARDONOTCARE && requirements.getUndetectedBitErr() > cube.getUndetectedBitErr())
         return false;
 
-    if (requirements.getPduDropProbability() != VAL_QOSPARDONOTCARE && requirements.getPduDropProbability() > cube.getPduDropProbability())
+    if (requirements.getPduDropProbability() != VAL_QOSPARDONOTCARE && requirements.getPduDropProbability() < cube.getPduDropProbability())
         return false;
 
     if (requirements.getMaxSduSize() != VAL_QOSPARDONOTCARE && requirements.getMaxSduSize() > cube.getMaxSduSize())
@@ -57,21 +58,21 @@ bool MinComparer::isFeasibility(const QoSReq requirements, const QoSCube cube) c
     if (requirements.getMaxAllowGap() != VAL_QOSPARDONOTCARE && requirements.getMaxAllowGap() > cube.getMaxAllowGap())
         return false;
 
-    if (requirements.getDelay() != VAL_QOSPARDONOTCARE && requirements.getDelay() > cube.getDelay())
+    if (requirements.getDelay() != VAL_QOSPARDONOTCARE && requirements.getDelay() < cube.getDelay())
         return false;
 
-    if (requirements.getJitter() != VAL_QOSPARDONOTCARE && requirements.getJitter() > cube.getJitter())
+    if (requirements.getJitter() != VAL_QOSPARDONOTCARE && requirements.getJitter() < cube.getJitter())
         return false;
 
-    if (requirements.getCostTime() != VAL_QOSPARDONOTCARE && requirements.getCostTime() > cube.getCostTime())
+    if (requirements.getCostTime() != VAL_QOSPARDONOTCARE && requirements.getCostTime() < cube.getCostTime())
         return false;
 
-    if (requirements.getCostBits() != VAL_QOSPARDONOTCARE && requirements.getCostBits() > cube.getCostBits())
+    if (requirements.getCostBits() != VAL_QOSPARDONOTCARE && requirements.getCostBits() < cube.getCostBits())
         return false;
 
     return true;
-
 }
+
 bool MinComparer::run(Flow& flow) {
     Enter_Method("invokeNewFlowRequestPolicy()");
     //Is flow policy acceptable
@@ -88,17 +89,17 @@ bool MinComparer::run(Flow& flow) {
         return true;
     }
 
-    //TODO: Compare QoS Parameters with available QoS cubes
     QoSCubeSet cubes = ResourceAllocator->getQoSCubes();
-    //EV << ResourceAllocator->getQoSCubes();
 
     std::string qosid = VAL_UNDEF_QOSID;
-    //XXX: Vesely->Gaixas: Please, check following cost variable value and overall functionality of this comparer
     double cost = DBL_MAX;
 
     for (QCubeCItem it = cubes.begin(); it != cubes.end(); ++it) {
+
+        if(it->getQosId() == QoSCube::MANAGEMENT.getQosId()) { continue; }
+
         if( isFeasibility(flow.getQosRequirements(), *it) ){
-            double tmpscore = flow.getQosRequirements().getCostBits();
+            double tmpscore = it->getCostBits();
             if (cost > tmpscore) {
                 cost = tmpscore;
                 qosid = it->getQosId();

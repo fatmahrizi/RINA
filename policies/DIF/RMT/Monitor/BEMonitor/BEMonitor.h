@@ -39,8 +39,7 @@ class BEMonitor : public SmartMonitor
 {
 public:
     void onPolicyInit();
-    void onMessageArrival(RMTQueue* queue);
-    void onMessageDeparture(RMTQueue* queue);
+    void postPDUInsertion(RMTQueue* queue);
     void onMessageDrop(RMTQueue* queue, const cPacket* pdu);
     void postQueueCreation(RMTQueue* queue);
 

@@ -193,25 +193,26 @@ void AESender::handleSelfMessage(cMessage *msg) {
     }
     else if ( !strcmp(msg->getName(), S_TIM_COM) ) {
         if(stopAt > simTime()){
-            int tburst = intuniform(1,pduburst);
+            if(FlowObject->getConId().getDstCepId()>=0){
+                int tburst = intuniform(1,pduburst);
 
-            double msgWait = tburst*rate;
-            for(int i = 0; i < tburst; i++){
-                int msgSize = size + intuniform(-sizevar,sizevar);
-                msgWait += uniform(-ratevar,ratevar);
-                //Create PING messsage
-                CDAP_M_Read* ping = new PingMsg();
+                double msgWait = tburst*rate;
+                for(int i = 0; i < tburst; i++){
+                    int msgSize = size + intuniform(-sizevar,sizevar);
+                    msgWait += uniform(-ratevar,ratevar);
+                    //Create PING messsage
+                    CDAP_M_Read* ping = new PingMsg();
 
-                ping->setByteLength(msgSize);
+                    ping->setByteLength(msgSize);
 
-                //Send message
-                sendData(FlowObject, ping);
-                send++;
-                sendSize += msgSize;
+                    //Send message
+                    sendData(FlowObject, ping);
+                    send++;
+                    sendSize += msgSize;
+                }
+                //Schedule ComRequest
+                scheduleAt(simTime()+msgWait, new cMessage(S_TIM_COM));
             }
-            //Schedule ComRequest
-            cMessage* m = new cMessage(S_TIM_COM);
-            scheduleAt(simTime()+msgWait, m);
         }
     }
     else

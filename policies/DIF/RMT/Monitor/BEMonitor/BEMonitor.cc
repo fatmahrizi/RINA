@@ -23,7 +23,7 @@ Define_Module(BEMonitor);
 
 void BEMonitor::onPolicyInit(){}
 
-void BEMonitor::onMessageArrival(RMTQueue* queue) {
+void BEMonitor::postPDUInsertion(RMTQueue* queue) {
     RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);
     if(port != NULL){
         if(queue->getType() == RMTQueue::INPUT){
@@ -36,8 +36,6 @@ void BEMonitor::onMessageArrival(RMTQueue* queue) {
         }
     }
 }
-
-void BEMonitor::onMessageDeparture(RMTQueue* queue) {}
 
 void BEMonitor::onMessageDrop(RMTQueue* queue, const cPacket* pdu) {
     RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);
