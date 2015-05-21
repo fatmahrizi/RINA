@@ -184,10 +184,6 @@ queueStat DLMonitor::getInStat(RMTQueue * queue){
     RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);
     if(port == NULL){ error("RMTPort for RMTQueue not found."); }
 
-    if(inC[port] > queue->getMaxLength()+5) {
-        error("no esta dropeando entrada");
-    }
-
     return queueStat(inC[port],queue->getMaxLength(),1,queue->getMaxLength());
 }
 queueStat DLMonitor::getOutStat(RMTQueue * queue){

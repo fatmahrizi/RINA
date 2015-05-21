@@ -1,6 +1,4 @@
 //
-// Copyright © 2014 - 2015 PRISTINE Consortium (http://ict-pristine.eu)
-// 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -15,29 +13,24 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include "IDPerNFlow.h"
+package rina.src.DAF.AE;
 
-Define_Module(IDPerNFlow);
-
-std::string IDPerNFlow::generateOutputQueueID(PDU* pdu)
+simple AESint extends AE like IAE
 {
-    std::ostringstream id;
-    id << pdu->getSrcAddr().getIpcAddress().getName() << "_"
-       << pdu->getConnId().getSrcCepId();
-
-    return id.str();
-}
-
-std::string IDPerNFlow::generateInputQueueID(PDU* pdu)
-{
-    return generateOutputQueueID(pdu);
-}
-
-std::string IDPerNFlow::generateIDFromFlow(Flow* flow)
-{
-    std::ostringstream id;
-    id << flow->getSrcAddr().getIpcAddress().getName() << "_"
-       << flow->getConId().getSrcCepId();
-
-    return id.str();
+    parameters:
+        string dstApName = default("AppErr");
+        string dstApInstance = default("0");
+        string dstAeName = default("AeErr");
+        string dstAeInstance = default("0");
+        
+        int startAt @unit(s) = default(0s);
+        int stopAt  @unit(s) = default(0s);
+        int sendAfter  @unit(s) = default(0s);
+        int stopAfter  @unit(s) = default(0s);
+        
+        int maxPDUsize = default(1024);
+        
+        bool printAtEnd = default(false);
+        bool recTimes = default(false);
+        
 }

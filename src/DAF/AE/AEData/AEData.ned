@@ -1,6 +1,4 @@
 //
-// Copyright © 2014 - 2015 PRISTINE Consortium (http://ict-pristine.eu)
-// 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -15,29 +13,16 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include "IDPerNFlow.h"
+package rina.src.DAF.AE.AEData;
 
-Define_Module(IDPerNFlow);
+import rina.src.DAF.AE.AESint;
 
-std::string IDPerNFlow::generateOutputQueueID(PDU* pdu)
-{
-    std::ostringstream id;
-    id << pdu->getSrcAddr().getIpcAddress().getName() << "_"
-       << pdu->getConnId().getSrcCepId();
-
-    return id.str();
-}
-
-std::string IDPerNFlow::generateInputQueueID(PDU* pdu)
-{
-    return generateOutputQueueID(pdu);
-}
-
-std::string IDPerNFlow::generateIDFromFlow(Flow* flow)
-{
-    std::ostringstream id;
-    id << flow->getSrcAddr().getIpcAddress().getName() << "_"
-       << flow->getConId().getSrcCepId();
-
-    return id.str();
+simple AEData extends AESint
+{ 
+    parameters:
+        @class(AEData::AEData);
+        
+        double startVar = default(0.0); 
+        xml streamList =  default(xml("<Streams/>"));     
+    
 }
