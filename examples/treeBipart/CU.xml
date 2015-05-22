@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <Configuration>
   <CU>
+    <CUItem id="M">
+    	<urgency>3</urgency>
+    	<cherishThreshold>110</cherishThreshold>
+    </CUItem>
     <CUItem id="A1">
     	<urgency>2</urgency>
     	<cherishThreshold>100</cherishThreshold>
@@ -24,6 +28,7 @@
   </CU>
   
   <qos2CU>
+  	<qos id="MGMT-QoSCube" cu="M" />
   	<qos id="0" cu="A1" />
   	<qos id="1" cu="A1" />
   	<qos id="2" cu="A2" />

@@ -26,11 +26,9 @@ void QueuePerNQoS::onNM1PortInit(RMTPort* port)
     const QoSCubeSet& cubes = ra->getQoSCubes();
 
 
-    rmtAllocator->addQueue(RMTQueue::OUTPUT, port, "mgmt");
-    rmtAllocator->addQueue(RMTQueue::INPUT, port, "mgmt");
+    rmtAllocator->addQueue(RMTQueue::OUTPUT, port, "M");
+    rmtAllocator->addQueue(RMTQueue::INPUT, port, "M");
 
-    rmtAllocator->addQueue(RMTQueue::OUTPUT, port, "BE");
-    rmtAllocator->addQueue(RMTQueue::INPUT, port, "BE");
 
     // create a pair of queues for each available data QoS cube
     for (QCubeCItem it = cubes.begin(); it != cubes.end(); ++it)

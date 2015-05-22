@@ -3,110 +3,134 @@
   <ConnectionSets>
     <ConnectionSet id="all">
       <SimTime t="0">
-        <Connection src="1_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="1_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="1_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="1_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="1_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="1.0_Tree" dst="1_Tree" qosReq="mgmt"/>
+        <Connection src="1.1_Tree" dst="1_Tree" qosReq="mgmt"/>
+        <Connection src="1.2_Tree" dst="1_Tree" qosReq="mgmt"/>
+        <Connection src="1.3_Tree" dst="1_Tree" qosReq="mgmt"/>
+        <Connection src="2.0.0_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.0.1_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.0.2_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.0.3_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.1.0_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.1.1_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.1.2_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.1.3_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.2.0_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.2.1_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.2.2_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.2.3_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.3.0_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.3.1_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.3.2_Tree" dst="2_Tree" qosReq="mgmt"/>
+        <Connection src="2.3.3_Tree" dst="2_Tree" qosReq="mgmt"/>
+      </SimTime>
+      
+      <SimTime t="1">
+        <Connection src="1_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="1_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="1_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="1_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="1.0_Tree" dst="1_Tree" qosCube="1"/>
-        <Connection src="1.0_Tree" dst="1_Tree" qosCube="2"/>
-        <Connection src="1.0_Tree" dst="1_Tree" qosCube="3"/>
-        <Connection src="1.0_Tree" dst="1_Tree" qosCube="4"/>
+        <Connection src="1.0_Tree" dst="1_Tree" qosReq="1"/>
+        <Connection src="1.0_Tree" dst="1_Tree" qosReq="2"/>
+        <Connection src="1.0_Tree" dst="1_Tree" qosReq="3"/>
+        <Connection src="1.0_Tree" dst="1_Tree" qosReq="4"/>
 
-        <Connection src="1.1_Tree" dst="1_Tree" qosCube="1"/>
-        <Connection src="1.1_Tree" dst="1_Tree" qosCube="2"/>
-        <Connection src="1.1_Tree" dst="1_Tree" qosCube="3"/>
-        <Connection src="1.1_Tree" dst="1_Tree" qosCube="4"/>
+        <Connection src="1.1_Tree" dst="1_Tree" qosReq="1"/>
+        <Connection src="1.1_Tree" dst="1_Tree" qosReq="2"/>
+        <Connection src="1.1_Tree" dst="1_Tree" qosReq="3"/>
+        <Connection src="1.1_Tree" dst="1_Tree" qosReq="4"/>
 
-        <Connection src="1.2_Tree" dst="1_Tree" qosCube="1"/>
-        <Connection src="1.2_Tree" dst="1_Tree" qosCube="2"/>
-        <Connection src="1.2_Tree" dst="1_Tree" qosCube="3"/>
-        <Connection src="1.2_Tree" dst="1_Tree" qosCube="4"/>
+        <Connection src="1.2_Tree" dst="1_Tree" qosReq="1"/>
+        <Connection src="1.2_Tree" dst="1_Tree" qosReq="2"/>
+        <Connection src="1.2_Tree" dst="1_Tree" qosReq="3"/>
+        <Connection src="1.2_Tree" dst="1_Tree" qosReq="4"/>
 
-        <Connection src="1.3_Tree" dst="1_Tree" qosCube="1"/>
-        <Connection src="1.3_Tree" dst="1_Tree" qosCube="2"/>
-        <Connection src="1.3_Tree" dst="1_Tree" qosCube="3"/>
-        <Connection src="1.3_Tree" dst="1_Tree" qosCube="4"/>
+        <Connection src="1.3_Tree" dst="1_Tree" qosReq="1"/>
+        <Connection src="1.3_Tree" dst="1_Tree" qosReq="2"/>
+        <Connection src="1.3_Tree" dst="1_Tree" qosReq="3"/>
+        <Connection src="1.3_Tree" dst="1_Tree" qosReq="4"/>
 
-        <Connection src="2.0.0_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.0.0_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.0.0_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.0.0_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.0.0_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.0.0_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.0.0_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.0.0_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.0.1_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.0.1_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.0.1_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.0.1_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.0.1_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.0.1_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.0.1_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.0.1_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.0.2_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.0.2_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.0.2_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.0.2_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.0.2_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.0.2_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.0.2_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.0.2_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.0.3_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.0.3_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.0.3_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.0.3_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.0.3_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.0.3_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.0.3_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.0.3_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.1.0_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.1.0_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.1.0_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.1.0_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.1.0_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.1.0_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.1.0_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.1.0_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.1.1_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.1.1_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.1.1_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.1.1_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.1.1_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.1.1_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.1.1_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.1.1_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.1.2_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.1.2_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.1.2_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.1.2_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.1.2_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.1.2_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.1.2_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.1.2_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.1.3_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.1.3_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.1.3_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.1.3_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.1.3_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.1.3_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.1.3_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.1.3_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.2.0_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.2.0_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.2.0_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.2.0_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.2.0_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.2.0_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.2.0_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.2.0_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.2.1_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.2.1_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.2.1_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.2.1_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.2.1_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.2.1_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.2.1_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.2.1_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.2.2_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.2.2_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.2.2_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.2.2_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.2.2_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.2.2_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.2.2_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.2.2_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.2.3_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.2.3_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.2.3_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.2.3_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.2.3_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.2.3_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.2.3_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.2.3_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.3.0_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.3.0_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.3.0_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.3.0_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.3.0_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.3.0_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.3.0_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.3.0_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.3.1_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.3.1_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.3.1_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.3.1_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.3.1_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.3.1_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.3.1_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.3.1_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.3.2_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.3.2_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.3.2_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.3.2_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.3.2_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.3.2_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.3.2_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.3.2_Tree" dst="2_Tree" qosReq="4"/>
 
-        <Connection src="2.3.3_Tree" dst="2_Tree" qosCube="1"/>
-        <Connection src="2.3.3_Tree" dst="2_Tree" qosCube="2"/>
-        <Connection src="2.3.3_Tree" dst="2_Tree" qosCube="3"/>
-        <Connection src="2.3.3_Tree" dst="2_Tree" qosCube="4"/>
+        <Connection src="2.3.3_Tree" dst="2_Tree" qosReq="1"/>
+        <Connection src="2.3.3_Tree" dst="2_Tree" qosReq="2"/>
+        <Connection src="2.3.3_Tree" dst="2_Tree" qosReq="3"/>
+        <Connection src="2.3.3_Tree" dst="2_Tree" qosReq="4"/>
       </SimTime>
     </ConnectionSet>
   </ConnectionSets>

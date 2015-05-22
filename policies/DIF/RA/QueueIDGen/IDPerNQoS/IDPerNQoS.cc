@@ -19,19 +19,11 @@
 
 Define_Module(IDPerNQoS);
 
-std::string IDPerNQoS::generateOutputQueueID(PDU* pdu)
-{
-    if(pdu->getConnId().getQoSId() == VAL_MGMTQOSID){
-        return "mgmt";
-    }
-
-    std::ostringstream id;
-    id << pdu->getConnId().getQoSId();
-    return id.str();
+std::string IDPerNQoS::generateOutputQueueID(PDU* pdu) {
+    if(pdu->getConnId().getQoSId() == VAL_MGMTQOSID){ return "M";}
+    return pdu->getConnId().getQoSId();
 }
 
-std::string IDPerNQoS::generateInputQueueID(PDU* pdu)
-{
-    EV << generateOutputQueueID(pdu)<<endl;
+std::string IDPerNQoS::generateInputQueueID(PDU* pdu) {
     return generateOutputQueueID(pdu);
 }

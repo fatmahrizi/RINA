@@ -47,8 +47,8 @@ void QueuePerNCU::onPolicyInit()
 
 void QueuePerNCU::onNM1PortInit(RMTPort* port)
 {
-    rmtAllocator->addQueue(RMTQueue::OUTPUT, port, "mgmt");
-    rmtAllocator->addQueue(RMTQueue::INPUT, port, "mgmt");
+    rmtAllocator->addQueue(RMTQueue::OUTPUT, port, "BE");
+    rmtAllocator->addQueue(RMTQueue::INPUT, port, "BE");
 
     for(std::set<std::string>::iterator it = CUs.begin(); it!= CUs.end(); it++){
         rmtAllocator->addQueue(RMTQueue::OUTPUT, port, it->c_str());

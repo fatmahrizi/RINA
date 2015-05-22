@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Configuration>
   <CU>
-    <CUItem id="mgmt">
-    	<queue>outQ_mgmt</queue>
+    <CUItem id="M">
+    	<queue>outQ_M</queue>
     	<urgency>4</urgency>
     	<cherishThreshold>100</cherishThreshold>
     </CUItem>
@@ -62,7 +62,7 @@
   </CU>
   
   <qos2CU>
-  	<qos id="MGMT-QoSCube" cu="mgmt" />
+  	<qos id="MGMT-QoSCube" cu="M" />
   	<qos id="1" cu="A1" />
   	<qos id="2" cu="A2" />
   	<qos id="3" cu="A3" />
