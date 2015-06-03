@@ -1,6 +1,4 @@
 //
-// Copyright © 2014 - 2015 PRISTINE Consortium (http://ict-pristine.eu)
-//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -15,14 +13,13 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-import rina.policies.DIF.RMT.MaxQueue.IntRMTMaxQPolicy;
+import rina.policies.DIF.RMT.Scheduler.IntRMTSchedulingPolicy;
 
-package rina.policies.DIF.RMT.MaxQueue.PortMaxQ;
+package rina.policies.DIF.RMT.Scheduler.DQSch;
 
-simple PortMaxQ like IntRMTMaxQPolicy 
+
+simple DQSch like IntRMTSchedulingPolicy
 {
     parameters:
         @display("i=block/socket");
-
-        @signal[RMT-SlowDownRequest];
 }

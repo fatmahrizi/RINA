@@ -95,8 +95,7 @@ bool MinComparer::run(Flow& flow) {
     double cost = DBL_MAX;
 
     for (QCubeCItem it = cubes.begin(); it != cubes.end(); ++it) {
-
-        if(it->getQosId() == QoSCube::MANAGEMENT.getQosId()) { continue; }
+        if(it->getQosId() == VAL_MGMTQOSID) { continue; }
 
         if( isFeasibility(flow.getQosRequirements(), *it) ){
             double tmpscore = it->getCostBits();

@@ -50,17 +50,6 @@ void BEMonitor::onMessageDrop(RMTQueue* queue, const cPacket* pdu) {
     }
 }
 
-void BEMonitor::postQueueCreation(RMTQueue* queue){
-}
-
-int BEMonitor::getInCount(RMTPort* port) {
-    return inC[port];
-}
-
-int BEMonitor::getInThreshold(RMTQueue * queue){
-    return queue->getMaxLength();
-}
-
 RMTQueue* BEMonitor::getNextInput(RMTPort* port){
     RMTQueue* q = NULL;
 
@@ -75,14 +64,6 @@ RMTQueue* BEMonitor::getNextInput(RMTPort* port){
     }
 
     return q;
-}
-
-int BEMonitor::getOutCount(RMTPort* port){
-    return outC[port];
-}
-
-int BEMonitor::getOutThreshold(RMTQueue * queue){
-    return queue->getMaxLength();
 }
 
 RMTQueue* BEMonitor::getNextOutput(RMTPort* port){
@@ -101,19 +82,19 @@ RMTQueue* BEMonitor::getNextOutput(RMTPort* port){
     return q;
 }
 
-queueStat BEMonitor::getInStat(RMTQueue * queue){
+double BEMonitor::getInDropProb(RMTQueue * queue) {
     RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);
     if(port == NULL){ error("RMTPort for RMTQueue not found."); }
 
-    return queueStat(inC[port],queue->getMaxLength(),1,queue->getMaxLength());
+    return ( inC[port] < (int)queue->getMaxLength() )? 0 : 1;
 }
-queueStat BEMonitor::getOutStat(RMTQueue * queue){
+
+double BEMonitor::getOutDropProb(RMTQueue * queue) {
     RMTPort* port = rmtAllocator->getQueueToPortMapping(queue);
     if(port == NULL){ error("RMTPort for RMTQueue not found."); }
 
-    return queueStat(outC[port],queue->getMaxLength(),1,queue->getMaxLength());
+    return ( outC[port] < (int)queue->getMaxLength() )? 0 : 1;
 }
-
 
 
 }
