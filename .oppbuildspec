@@ -1,3 +1,3 @@
 <buildspec version="4.0">
-<dir makemake-options="--deep -O out --meta:recurse --meta:auto-include-path --meta:export-library --meta:use-exported-libs --meta:feature-cflags --meta:feature-ldflags" path="." type="makemake"/>
+<dir makemake-options="--deep -O out -KCXXFLAGS=-std=c++11 -KCFLAGS=-std=c++11 --meta:recurse --meta:auto-include-path --meta:export-library --meta:use-exported-libs --meta:feature-cflags --meta:feature-ldflags" path="." type="makemake"/>
 </buildspec>
